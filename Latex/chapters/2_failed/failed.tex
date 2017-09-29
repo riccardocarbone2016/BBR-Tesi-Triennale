@@ -17,7 +17,7 @@ La seguente figura fornisce un'immagine semplificata ma coincisa, sul ruolo che 
 
 \center
 \caption{Visione semplificata del bottleneck link}
-\includegraphics[scale=0.7]{chapters/failed/img/bottleneck_link}
+\includegraphics[scale=0.7]{chapters/2_failed/img/bottleneck_link}
 
 \end{figure}
 
@@ -44,7 +44,9 @@ Per poter caratterizzare il ritardo end-to-end introduciamo un altro parametro c
 
 L'\textit{RTprop} costituisce il minimo ritardo di propagazione, o se si vuole il limite inferiore dell'RTT per una data comunicazione. \bigskip
 
-Ora, il mittente dovrà attendere un RTT prima d'iniziare una seconda fase d'invio. Infatti ricordiamo che l'RTT per un dato pacchetto, è il tempo che intercorre tra la trasmissione e la ricezione del relativo ack. In una tale fase:
+Ora, il mittente dovrà attendere un RTT prima d'iniziare una seconda fase d'invio. Infatti ricordiamo che l'RTT per un dato pacchetto, è il tempo che intercorre tra la trasmissione e la ricezione del relativo ack. \bigskip
+
+In una fase d'invio:
 
 \begin{itemize}
 
@@ -57,7 +59,7 @@ Ora, il mittente dovrà attendere un RTT prima d'iniziare una seconda fase d'inv
 \center
 \caption{Delivery rate and round trip time vs inflight part 1}
 \label{Delivery_rate_round_trip_time_part_1}
-\includegraphics[scale=0.8]{chapters/failed/img/Delivery_rate_round_trip_time_part_1}
+\includegraphics[scale=0.8]{chapters/2_failed/img/Delivery_rate_round_trip_time_part_1}
 \caption*{Figura tratta da \cite[p.~60]{Cardwell:2017:BCC:3042068.3009824}}
 
 \end{figure}
@@ -73,7 +75,7 @@ Ora, il mittente dovrà attendere un RTT prima d'iniziare una seconda fase d'inv
 \center
 \caption{Delivery rate and round trip time vs inflight}
 \label{Delivery_rate_round_trip_time}
-\includegraphics[scale=0.8]{chapters/failed/img/Delivery_rate_round_trip_time}
+\includegraphics[scale=0.8]{chapters/2_failed/img/Delivery_rate_round_trip_time}
 \caption*{Figura tratta da \cite[p.~60]{Cardwell:2017:BCC:3042068.3009824}}
 
 \end{figure}

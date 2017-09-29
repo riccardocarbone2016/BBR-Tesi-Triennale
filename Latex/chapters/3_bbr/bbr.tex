@@ -1,4 +1,4 @@
-Il comportamento di BBR è dettato da un modello del path di rete, su cui il flusso di pacchetti viaggia. Tale modello traccia l'andamento nel corso del tempo del BtlBw e dell'RTprop. \bigskip
+Il comportamento di BBR è dettato da un modello del path di rete, su cui il flusso di pacchetti viaggia. Tale modello traccia l'andamento nel corso del tempo del \textit{BtlBw} e dell'\textit{RTprop}. \bigskip
 
 Guidato dal proprio modello il BBR setta i propri parametri di controllo :
 
@@ -18,7 +18,7 @@ L'apposita configurazione di tali parametri, permetterà al BBR di operare nel p
 
 \item \textit{Rate balance} : il sending rate del mittente ed il bottleneck rate sono perfettamente bilanciati;
 
-\item \textit{Full pipe} : la quantità di dati inflight è uguale al BDP corrente. La pipe opera al 100\%, nulla più, nulla meno;
+\item \textit{Full pipe} : la quantità di dati inflight è uguale al \textit{BDP} corrente. La pipe opera al 100\%, nulla più, nulla meno;
 
 \end{itemize}
 
@@ -38,10 +38,10 @@ In questa sezione approfondiamo come vengono misurati i parametri caratteristici
 
 \subsection{Bottleneck bandwidth} 
 
-Nella regione di bandwidth limited illustrata nel grafico \ref{Delivery_rate_round_trip_time}, il delivery rate è praticamente pari al bottleneck rate, essendo questo il suo limite superiore. Quindi la stima del BtlBw può essere raggiunta attraverso il campionamento del delivery rate. \bigskip
+Nella regione di bandwidth limited illustrata nel grafico \ref{Delivery_rate_round_trip_time}, il delivery rate è praticamente pari al bottleneck rate, essendo questo il suo limite superiore. Quindi la stima del \textit{BtlBw} può essere raggiunta attraverso il campionamento del delivery rate. \bigskip
 
 Il tempo con la quale sono generati i campioni utili alla stima è temporizzato dagli ACK ricevuti dal mittente.
-Approfondiamo adesso, il processo di generazione dei campioni. (per una trattazione specifica consultare \cite{ietf:draft-cheng-iccrg-delivery-rate-estimation-00}) \bigskip
+Approfondiamo adesso, il processo di generazione dei campioni (per una trattazione specifica consultare \cite{ietf:draft-cheng-iccrg-delivery-rate-estimation-00}). \bigskip
 
 \subsubsection{L'ack rate}
 
@@ -71,7 +71,7 @@ A partire da queste è possibile definire l'espressione dell'ack rate:
 
 E' fondamentale comprendere che l'ack rate è vicino al delivery rate se la quantità di dati riscontrata nel $ \Delta t$ individuato, corrisponde a ciò che effettivamente il mittente trasferisce a destinazione.\bigskip
 
-Fenomeni come la compressione, o soppressione degli ack potrebbero alterare la loro normale temporizzazione, portando a sovrastimare o sottostimare (rispettivamente) il delivery rate \cite{ietf:ack-suppression} \bigskip
+Fenomeni come la compressione, o soppressione degli ack potrebbero alterare la loro normale temporizzazione, portando a sovrastimare o sottostimare (rispettivamente) il delivery rate \cite{ietf:ack-suppression}. \bigskip
 
 La compressione è il principale nemico, in quanto una sovrastima per ragioni chiare avanti, è più pericolosa di una sottostima. \bigskip
 
@@ -83,11 +83,11 @@ Mostriamo una possibile sequenza di trasmissione, da parte di un generico sender
 
 \center
 \caption{Ack rate determinato in corrispondenza del riscontro per Pkt 3}
-\includegraphics[scale=1.1]{chapters/bbr/img/ack_rate}
+\includegraphics[scale=1.1]{chapters/3_bbr/img/ack_rate}
 
 \end{figure}
 
-All'atto della ricezione del riscontro per il pacchetto 3, viene determinato l'ack rate come :
+All'atto della ricezione del riscontro per il pacchetto 3, viene determinato l'ack rate come:
 
 \begin{center}
 
@@ -124,7 +124,7 @@ A partire da queste definiamo l'espressione del send rate:
 
 La differenza con l'ack rate sta nell'intervallo di tempo considerato. Il send time rappresenta il tempo che trascorso tra la trasmissione dell'ultimo pacchetto riscontrato, e il pacchetto attualmente riscontrato. \bigskip
 
-Questo permette che il $\Delta t$ considerato includa il tempo di trasmissione dei dati riscontrati. Il send time è in generale >= dell'effettivo tempo di trasmissione. Così è possibile evitare il problema delle sovrastime dell'ack rate. \bigskip
+Questo permette che il $\Delta t$ considerato includa il tempo di trasmissione dei dati riscontrati, in quanto il send time è in generale >= dell'effettivo tempo di trasmissione. Così è possibile evitare il problema delle sovrastime dell'ack rate. \bigskip
 
 \begin{esempio}{Esempio: un caso di compressione degli ack}
 
@@ -134,7 +134,7 @@ Mostriamo una possibile sequenza di trasmissione, in cui si verifica una compres
 
 \center
 \caption{Fenomeno di compressione degli ack}
-\includegraphics[scale=0.9]{chapters/bbr/img/ack_rate_overstimate.pdf}
+\includegraphics[scale=0.9]{chapters/3_bbr/img/ack_rate_overstimate.pdf}
 
 \end{figure}
 
@@ -158,7 +158,7 @@ Consideriamo la stessa sequenza di trasmissione precedente, da parte di un gener
 
 \center
 \caption{Send rate determinato in corrispondenza del riscontro per Pkt 4}
-\includegraphics[scale=1.1]{chapters/bbr/img/send_rate}
+\includegraphics[scale=1.1]{chapters/3_bbr/img/send_rate}
 
 \end{figure}
 
@@ -174,7 +174,7 @@ Dunque il send rate rappresenta la pendenza del segmento evidenziato in verde. O
 
 \end{approfondimento}
 
-\subsubsection{Stima del BtlBw}
+\subsubsection{Stima del \textit{BtlBw}}
 
 Ad ogni ack sarà generato un campione relativo al delivery rate come segue:
 
@@ -185,13 +185,13 @@ Ad ogni ack sarà generato un campione relativo al delivery rate come segue:
 
 Non ci resta altro che scoprire come da tali campioni venga ottenuta una stima del bottleneck rate. \bigskip
 
-Per poter far questo BBR usa un BtlBwMaxFilter, un windowed filter, di ampiezza $ W_{B} $ :
+Per poter far questo BBR usa un \textit{BtlBw}MaxFilter, un windowed filter, di ampiezza $ W_{B} $ :
 
 \[
-	\widehat{BtlBw_{T}} \: = \: max(deliveryRate_{t}) \; \forall t\: \in \: [T-W_{B},T]  
+	\widehat{\textit{BtlBw}_{T}} \: = \: max(deliveryRate_{t}) \; \forall t\: \in \: [T-W_{B},T]  
 \]
 
-L'ampiezza $ W_{B} $ è misurata in multipli di RTprop, e deve essere:
+L'ampiezza $ W_{B} $ è misurata in multipli di \textit{RTprop}, e deve essere:
 
 \begin{itemize}
 
@@ -203,16 +203,16 @@ L'ampiezza $ W_{B} $ è misurata in multipli di RTprop, e deve essere:
 
 \end{itemize} 
 
-Un ottimo valore è costituito da 10 RTprops. \cite[p.~61]{Cardwell:2017:BCC:3042068.3009824}
+Un ottimo valore è costituito da 10 \textit{RTprop}s \cite[p.~61]{Cardwell:2017:BCC:3042068.3009824}.
 
 \subsection{Round Trip propagation delay}
 
-Per la stima dell'RTprop siamo aiutati dal fatto che il protocollo TCP, già effettua un campionamento dell'RTT, per la gestione dei timeout di ritrasmissione. \bigskip
+Per la stima dell'\textit{RTprop} siamo aiutati dal fatto che il protocollo TCP, già effettua un campionamento dell'RTT, per la gestione dei timeout di ritrasmissione. \bigskip
 
-Anche per determinare RTprop BBR usa un windowed filter, RTpropMinFilter, di ampiezza $ W_{R} $ :
+Anche per determinare \textit{RTprop} BBR usa un windowed filter, \textit{RTprop}MinFilter, di ampiezza $ W_{R} $ :
 
 \[
-	\widehat{RTprop_{T}} \: = \: min(RTT_{t}) \; \forall t\: \in \: [T-W_{R},T]  
+	\widehat{\textit{RTprop}_{T}} \: = \: min(RTT_{t}) \; \forall t\: \in \: [T-W_{R},T]  
 \]
 
 L'ampiezza $ W_{R} $ è misurata in secondi, e deve essere :
@@ -223,7 +223,7 @@ L'ampiezza $ W_{R} $ è misurata in secondi, e deve essere :
 
 \item Abbastanza estesa da evitare una consistente diminuzione del delivery rate raramente (sezione \ref{ProbeRTT});
 
-\item Abbastanza estesa da poter sfruttare gli istanti in cui l'applicazione limita il delivery rate del mittente, per poter aggiornare la stima dell'RTprop senza diminuire fortemente il delivery rate;
+\item Abbastanza estesa da poter sfruttare gli istanti in cui l'applicazione limita il delivery rate del mittente, per poter aggiornare la stima dell'\textit{RTprop} senza diminuire fortemente il delivery rate;
 
 \item Abbastanza corta da poter permettere una pronta reazione ad un variazione dei ritardi;
 
@@ -260,10 +260,10 @@ BBRSetPacingRateWithGain(pacing_gain):
 
 \end{lstlisting}
 
-Da cui come ci si aspettava il pacing rate è settato proporzionalmente al BtlBw, attraverso il pacing gain.
+Da cui come ci si aspettava il pacing rate è settato proporzionalmente al \textit{BtlBw}, attraverso il pacing gain.
 La condizione dell'if non ne permette il decremento, in condizioni di pipe underfilled. \bigskip
 
-Un valore di pacing gain pari 1 può permettere di operare nel target operating point, se non sono state formate code in precedenza. Un valore di pacing gain > 1 è utile per ottenere sample utili alla stima del BtlBw, in quanto viene saturato il delivery rate. Ed infine un valore di pacing gain < 1, può essere utilizzato per svuotare le code generate, ed uscire da una situazione di pipe overfill.
+Un valore di pacing gain pari 1 può permettere di operare nel target operating point, se non sono state formate code in precedenza. Un valore di pacing gain > 1 è utile per ottenere sample utili alla stima del \textit{BtlBw}, in quanto viene saturato il delivery rate. Ed infine un valore di pacing gain < 1, può essere utilizzato per svuotare le code generate, ed uscire da una situazione di pipe overfill.
 
 \subsection{Send quantum}
 
@@ -279,9 +279,11 @@ Per la sua gestione vengono definiti un upper ed un lower bound:
 
 \begin{itemize}
 
-\item \textit{target cwnd}: limite superiore della cwnd, ottenuto in funzione del $ \widehat{BDP} $ (BDP stimato) come:
+\item \textit{target cwnd}: limite superiore della cwnd, ottenuto in funzione del $ \widehat{\textit{BDP}} $ (\textit{BDP} stimato) come:
 
-\textit{target cwnd = cwnd gain * $ \widehat{BDP} $}
+\begin{center}
+\textit{target cwnd = cwnd gain * $ \widehat{\textit{BDP}} $}
+\end{center}
 
 \item \textit{BBRMinPipeCwnd}: limite inferiore della cwnd, tipicamente tale da consetire l'invio di 2/4 pacchetti al mittente.
 
@@ -361,7 +363,7 @@ Il miglior punto di partenza è visualizzare gli stati in cui il flusso può tro
 
 \center
 \caption{BBR state diagram}
-\includegraphics[scale=0.6]{chapters/bbr/img/state_diagram}
+\includegraphics[scale=0.6]{chapters/3_bbr/img/state_diagram}
 
 \end{figure}
 
@@ -377,7 +379,7 @@ Ricordiamo che gli obiettivi della state machine sono:
 
 \end{itemize}
 
-Passiamo poi all'analisi degli stati, e delle transizioni.
+Passiamo ora all'analisi degli stati, e delle transizioni.
 
 \subsection{Startup}
 
@@ -395,7 +397,7 @@ BBREnterStartup():
 
 \end{lstlisting}
 
-La fase di Startup termina nel momento in cui si riempie completamente la pipe. Ciò che tipicamente accade, e che non si riesce ad arrivare precisamente nel punto operativo, ma un pò aldilà, generando così delle code, di una quantità pari a (cwnd gain - 1) * BDP. \bigskip
+La fase di Startup termina nel momento in cui si riempie completamente la pipe. Ciò che tipicamente accade, e che non si riesce ad arrivare precisamente nel punto operativo, ma un pò aldilà, generando così delle code, di una quantità pari a (cwnd gain - 1) * \textit{BDP}. \bigskip
 
 Per individuare poi, in che momento si è saturato il delivery rate, viene usato il network path model.
 Ciò che si fa è attendere, che per 3 round di fila, il bottleneck rate stimato non cresca più del 25\%. Quindi viene ricercato fondamentalmente un plateau per quest'ultimo. \bigskip
@@ -414,7 +416,7 @@ BBREnterDrain():
 
 \end{lstlisting}
 
-La fase di drain termina nel momento in cui la quantità di dati inflight arriva al valore attuale stimato del BDP. Quindi le code saranno tutte svuotate. \bigskip
+La fase di drain termina nel momento in cui la quantità di dati inflight arriva al valore attuale stimato del \textit{BDP}. Quindi le code saranno tutte svuotate. \bigskip
 
 A questo punto si passa in ProbeBW.
 
@@ -430,11 +432,11 @@ Ciò viene ottenuto attraverso una tecnica, chiamata gain cycling. Un gain cycle
 
 I valori di pacing gain usati per ogni fase sono i seguenti: [5/4,3/4,1,1,1,1,1,1]. \bigskip
 
-Partiamo dalla fase 0. In questa fase il pacing gain, porta il mittente, ad operare con un pacing rate > BtlBw. Questo serve ad ottenere campioni utili alla stima di quest'ultimo, in quanto è solo nella regione di bandwidth limited (figura \ref{Delivery_rate_round_trip_time}) ove il delivery rate $ \simeq $ bottleneck rate. \bigskip
+Partiamo dalla fase 0. In questa fase il pacing gain, porta il mittente, ad operare con un pacing rate > \textit{BtlBw}. Questo serve ad ottenere campioni utili alla stima di quest'ultimo, in quanto è solo nella regione di bandwidth limited (figura \ref{Delivery_rate_round_trip_time}) ove il delivery rate $ \simeq $ bottleneck rate. \bigskip
 
-La fase 0 dura almeno un RTprop, e termina nel momento in cui la quantità di dati inflight è pari a 5/4*BDP, o si verificano degli eventi di loss (non è possibile raggiungere la condizione inflight >= 5/4*BDP). \bigskip
+La fase 0 dura almeno un \textit{RTprop}, e termina nel momento in cui la quantità di dati inflight è pari a 5/4*\textit{BDP}, o si verificano degli eventi di loss (non è possibile raggiungere la condizione inflight >= 5/4*\textit{BDP}). \bigskip
 
-Dopo la fase 0, l'obiettivo della fase 1, è drenare le code che sono state formate, impostando un valore di pacing rate di 3/4. Dunque in un tempo pari a RTprop, o prima (se le code si svuotano rapidamente), ci riportiamo nuovamente nel target point. \bigskip
+Dopo la fase 0, l'obiettivo della fase 1, è drenare le code che sono state formate, impostando un valore di pacing rate di 3/4. Dunque in un tempo pari a \textit{RTprop}, o prima (se le code si svuotano rapidamente), ci riportiamo nuovamente nel target point. \bigskip
 
 Dopodichè dalla fase 2 in poi, il flusso opera nelle condizioni ideali, con un pacing gain pari a 1. \bigskip 
 
@@ -444,18 +446,18 @@ Proponiamo di seguito uno scenario reale di funzionamento del cycle gaining, in 
 
 \center
 \caption{BBR probe bw gain cycling}
-\includegraphics[scale=1.2]{chapters/bbr/img/probe_bw_gain_cycling}
+\includegraphics[scale=1.2]{chapters/3_bbr/img/probe_bw_gain_cycling}
 \caption*{Figura tratta da \cite[p.~62]{Cardwell:2017:BCC:3042068.3009824}}
 
 \end{figure}   
    
-Aggiungiamo solo che in questo stato, la cwnd non ha un ruolo centrale, ed il suo target viene impostato a 2*BDP. Questo per non disturbare la modulazione del pacing rate, e per avere comunque un limite di sicurezza per l'inflight amout.
+Aggiungiamo solo che in questo stato, la cwnd non ha un ruolo centrale, ed il suo target viene impostato a 2*\textit{BDP}. Questo per non disturbare la modulazione del pacing rate, e per avere comunque un limite di sicurezza per l'inflight amout.
 
 \subsection{ProbeRTT} \label{ProbeRTT}
 
-Il BBR usa tale stato, per poter ottenere sample dell'RTT utili a stimare correttamente l'RTprop. \bigskip
+Il BBR usa tale stato, per poter ottenere sample dell'RTT utili a stimare correttamente l'\textit{RTprop}. \bigskip
 
-Ogni ProbeRTTInterval (di una durata tipica di 10 s) il BBR transita in ProbeRTT, se la stima non è stata aggiornata. In tale stato ci si serve della cwnd per dare un colpo netto all quantità di dati inflight, impostandola al suo limite minimo (BBRMinCwndPipe). In questo modo, il flusso opera nella regione di application limited, ove non essendoci code, si otterrano sample dell'RTT $ \simeq $ RTprop. \bigskip
+Ogni ProbeRTTInterval (di una durata tipica di 10 s) il BBR transita in ProbeRTT, se la stima non è stata aggiornata. In tale stato ci si serve della cwnd per dare un colpo netto all quantità di dati inflight, impostandola al suo limite minimo (BBRMinCwndPipe). In questo modo, il flusso opera nella regione di application limited, ove si otterrano sample dell'RTT $ \simeq $ \textit{RTprop}. \bigskip
 
 La cwnd è mantenuta a BBRMinCwndPipe, per un tempo pari al ProbeRTTDuration, che è circa 200 ms. Questa scelta permette di spendere solo il 2\% del tempo in ProbeRTT, dove il delivery rate è limitato fortemente, a discapito del 98\% speso, giustamente in ProbeBW. \bigskip
 
@@ -477,6 +479,6 @@ In conclusione possiamo dire che l'evoluzione di un flusso BBR, passa per un:
 
 \center
 \caption{BBR state evolution}
-\includegraphics[scale=0.8]{chapters/bbr/img/bbr_evolution}
+\includegraphics[scale=0.8]{chapters/3_bbr/img/bbr_evolution}
 
 \end{figure}   

@@ -14,10 +14,14 @@
 \input{style/style.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%                    Documento                    %%%%%%
+%%%%%%                   Bibliografia                  %%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \addbibresource{bibliography.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%                    Documento                    %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 	
@@ -43,19 +47,22 @@
 	%\lstlistoflistings % Generazione dell'indice dei codici
 	
 	\chapter{Introduzione}
-		\input{chapters/introduction/introduction.tex}		
+		\input{chapters/1_introduction/introduction.tex}		
 		
 	\chapter{I problemi degli approcci loss-based}
-		\input{chapters/failed/failed.tex}
+		\input{chapters/2_failed/failed.tex}
 		
 	\chapter{Il controllo di congestione BBR}		
-		\input{chapters/bbr/bbr.tex}
+		\input{chapters/3_bbr/bbr.tex}
 
 	\chapter{Casi reali d'impiego del BBR}
-		\input{chapters/application/application.tex}
+		\input{chapters/4_application/application.tex}
 	
 	\chapter{Note}	
-		\input{chapters/note/note.tex}
+		\input{chapters/5_note/note.tex}
+	
+	\chapter{Appendice A}
+		\input{chapters/A_cubic/cubic.tex}
 	
 	\printbibliography
 
