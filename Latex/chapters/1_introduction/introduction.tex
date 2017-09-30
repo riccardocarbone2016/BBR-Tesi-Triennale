@@ -8,7 +8,7 @@ Tale scelta riguardava l’identificare il fenomeno di congestione (in senso str
 
 Tuttavia, nonostante i due concetti siano molto differenti, al tempo tale scelta aveva senso, solo in virtù delle limitazioni tecnologiche. \bigskip
 
-Oggi anche la migliore versione loss-based di TCP: CUBIC, fa fatica a garantire un delivery rate elevato. Basti pensare che per poter sostenere 10Gbps con un RTT di 100ms, è necessario un tasso di perdita dello 0.000003\%, e con lo stesso RTT ed un tasso di perdita dell’ 1\% sono sostenibili solo 3Mbps \cite[p.~12]{ietf:draft-ietf-tcpm-cubic-05}. \bigskip
+Oggi anche la migliore versione loss-based di TCP: Cubic (App. A), fa fatica a garantire un delivery rate elevato. Basti pensare che per poter sostenere 10Gbps con un RTT di 100ms, è necessario un tasso di perdita dello 0.000003\%, e con lo stesso RTT ed un tasso di perdita dell’ 1\% sono sostenibili solo 3Mbps \cite[p.~12]{ietf:draft-ietf-tcpm-cubic-05}. \bigskip
 
 Lo scopo di quest'elaborato è dunque quello di presentare un'alternativa per tali approcci, che non sia più basata sull'evento di packet loss, ma esplicitamente sull'evento di congestione. L'alternativa che è stata approfondita è il nuovo controllo di congestione BBR. \bigskip
 
