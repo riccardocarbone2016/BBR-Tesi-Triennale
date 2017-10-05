@@ -27,25 +27,28 @@
 	
 	%\input{frontespizio/frontespizio.tex}
 	
-	\begin{frontespizio}
-		\Universita{di Napoli Federico II}
-		\Facolta{Scuola Politecnica e delle Scienze di Base}
-		\Corso[Laurea]{Ingegneria Informatica}
-		\Logo{Logo}
-		\Titoletto{}
-		\Titolo{Il controllo di congestione BBR}
-		\Candidato{Riccardo Carbone}
-		\Annoaccademico{2016-2017}
-		\Rientro{1.5cm}
-		\NCandidato{Candidati}
-		\Punteggiatura{}
-	\end{frontespizio}	
+%	\begin{frontespizio}
+%		\Universita{di Napoli Federico II}
+%		\Facolta{Scuola Politecnica e delle Scienze di Base}
+%		\Corso[Laurea]{Ingegneria Informatica}
+%		\Logo{Logo}
+%		\Titoletto{}
+%		\Titolo{Il controllo di congestione BBR}
+%		\Candidato{Riccardo Carbone}
+%		\Annoaccademico{2016-2017}
+%		\Rientro{1.5cm}
+%		\NCandidato{Candidati}
+%		\Punteggiatura{}
+%	\end{frontespizio}	
 	
 	\tableofcontents % Generazione dell'indice
 	%\listoffigures % Generazione dell'indice delle figure
 	%\listoftables % Generazione dell'indice delle tabelle	
 	%\lstlistoflistings % Generazione dell'indice dei codici
 	
+	\chapter{Prefazione}	
+		\input{chapters/0_prefazione/prefazione.tex}		
+		
 	\chapter{Introduzione}
 		\input{chapters/1_introduction/introduction.tex}		
 		
@@ -58,8 +61,8 @@
 	\chapter{Casi reali d'impiego del BBR}
 		\input{chapters/4_application/application.tex}
 	
-	\chapter{Note}	
-		\input{chapters/5_note/note.tex}
+	%\chapter{Note}	
+		%\input{chapters/5_note/note.tex}
 	
 	\chapter{Appendice A}
 		\input{chapters/A_cubic/cubic.tex}

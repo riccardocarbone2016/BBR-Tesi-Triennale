@@ -5,11 +5,11 @@ Il primo passo è comprendere le reali potenzialità del delivery rate.
 
 \section{Il limite del delivery rate}
 
-Nel momento in cui due end-point iniziano a comunicare attraverso la rete Internet, i loro pacchetti attraverseranno una serie di collegamenti (link) intermedi, ognuno dei quali sarà caratterizzato da una propria larghezza di banda. \bigskip
+Nel momento in cui due end-point iniziano a comunicare attraverso la rete Internet, i loro pacchetti attraverseranno una serie di collegamenti (link) intermedi, ognuno dei quali sarà caratterizzato da una propria larghezza di banda disponibile. \bigskip
 
 %In ogni istante, il path di comunicazione può essere caratterizzato attraverso :
 
-In ogni istante, esiste esattamente un solo bottleneck link: il collegamento con la velocità di trasmissione più bassa. E' dunque necessario adeguarsi alle velocità di quest'ultimo, che pertanto determinerà il limite superiore del delivery rate end-to-end. \bigskip
+In ogni istante, per ogni verso della comunicazione\footnote{In una rete a datagrammi come Internet non è detto che il bottleneck link del receiver sia lo stesso del sender. Dato che ogni pacchetto può in generale seguire un percorso diverso rispetto gli altri}, esiste esattamente un solo bottleneck link: il collegamento con larghezza di banda disponibile più bassa. E' dunque necessario adeguarsi alle velocità di quest'ultimo, che pertanto determinerà il limite superiore del delivery rate end-to-end. \bigskip
 
 La seguente figura fornisce un'immagine semplificata ma coincisa, sul ruolo che riveste il bottleneck link nella comunicazione:
 
@@ -33,7 +33,7 @@ E' fisicamente impossibile per il delivery rate operare al di sopra del bottlene
 %
 %\end{nota}
 
-Dalla definizione del bottleneck rate (\textit{BtlBw}), discende subito la seguente affermazione:
+Dalla definizione del bottleneck rate (\textit{BtlBw}) discende subito la seguente affermazione:
 
 \begin{center}
 \label{sending_bottleneck_cons}
@@ -42,15 +42,13 @@ Dalla definizione del bottleneck rate (\textit{BtlBw}), discende subito la segue
 
 Per poter caratterizzare il ritardo end-to-end introduciamo un altro parametro caratteristico del path di rete, ovvero il Round-trip-propagation-delay (\textit{RTprop}). \bigskip
 
-L'\textit{RTprop} costituisce il minimo ritardo di propagazione, o se si vuole il limite inferiore dell'RTT per una data comunicazione. \bigskip
+L'\textit{RTprop} costituisce il minimo ritardo di propagazione, ovvero il limite inferiore dell'RTT per una data comunicazione. \bigskip
 
-Ora, il mittente dovrà attendere un RTT prima d'iniziare una seconda fase d'invio. Infatti ricordiamo che l'RTT per un dato pacchetto, è il tempo che intercorre tra la trasmissione e la ricezione del relativo ack. \bigskip
-
-In una fase d'invio:
+A questo punto, si fa notare che l'influenza che ha il mittente nei confronti dello stato della rete (caratterizzato dallo stato dei buffer intermedi) dipende dal suo sending rate:
 
 \begin{itemize}
 
-\item Se il sending rate fosse minore o prossimo al bottleneck rate, il mittente introdurrebbe nella rete un amount inflight\footnote{Quantità di dati inviata dal sender, ma non ancora riscontrata}, tale da non contribuire alla crescita del bottleneck buffer. Per cui in tali condizioni l'RTT = \textit{RTprop}:
+\item Se il sending rate fosse minore o prossimo al bottleneck rate, il mittente introdurrebbe nella rete un amount inflight\footnote{Quantità di dati inviata dal sender, ma non ancora riscontrata} tale da non contribuire alla crescita del bottleneck buffer. Per cui in tali condizioni l'RTT = \textit{RTprop}:
 
 \end{itemize}
 
@@ -66,7 +64,7 @@ In una fase d'invio:
 
 \begin{itemize}
 
-\item Se il sending rate fosse superiore al bottleneck rate, il mittente introdurrebbe nella rete un amount inflight superiore alla capacità di quest'ultima. L'RTT aumenta, per via della crescita del bottleneck buffer, e per bilanciare l'amount inflight così da fissare il delivery rate sul bottleneck rate:
+\item Se il sending rate fosse superiore al bottleneck rate, il mittente introdurrebbe nella rete un amount inflight superiore alla capacità di quest'ultima. L'RTT aumenta per via della crescita del bottleneck buffer, e per bilanciare l'amount inflight così da fissare il delivery rate sul bottleneck rate:
 
 \end{itemize}
 
@@ -84,7 +82,7 @@ Questi due casi sono molto importanti, in quanto nel primo il mittente non contr
 
 \[ BDP \:=\: BtlBw * RTprop \]
 
-Esso definisce la capacità di rete, ovvero il massimo amount inflight che il mittente può introdurre nella rete in un \textit{RTprop}, al massimo delivery rate, senza contribuire nè alla generazione di code, nè all'espansione dei ritardi. \bigskip
+Esso definisce la capacità di rete, ovvero il massimo amount inflight che il mittente può introdurre nella rete in un \textit{RTprop} al massimo delivery rate, senza contribuire nè alla generazione di code, nè all'espansione dei ritardi. \bigskip
 
 \begin{suggerimento}{Osservazione: interpretazione fisica dei parametri caratteristici}
 
@@ -100,10 +98,10 @@ Tali approcci limitano il sending rate del mittente, ponendo un limite superiore
 
 Sulla base delle proprie informazioni locali, l'algoritmo modula la congestion window nel corso del tempo. \bigskip
 
-La modulazione provvede semplicemente ad incrementare la \texttt{cwnd} (ogni versione usa tecniche differenti) , finchè non si verifica o un evento di timeout, o un evento di loss. \bigskip
+La modulazione provvede semplicemente ad incrementare la \texttt{cwnd} (ogni versione usa tecniche differenti) finchè non si verifica o un evento di timeout, o un evento di loss. \bigskip
 
-Nel caso di un timeout, si porta la \texttt{cwnd} al valore minimo, in quanto si assume perso tutto ciò che è stato tramesso (anche il BBR manterrà questo comportamento).
-Nel caso di un packet loss, la \texttt{cwnd} subisce un decremento moltiplicativo di un fattore $ \beta $. \bigskip
+Nel caso di un timeout si porta la \texttt{cwnd} al valore minimo, in quanto si assume perso tutto ciò che è stato tramesso (anche il BBR manterrà questo comportamento).
+Nel caso di un packet loss la \texttt{cwnd} subisce un decremento moltiplicativo di un fattore $ \beta $. \bigskip
 
 Quest'approccio non produce un controllo accurato del sending rate. Non è infatti possibile rilevare il momento in cui quest'ultimo eccede il bottleneck rate. \bigskip
 

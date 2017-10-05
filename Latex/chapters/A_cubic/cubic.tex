@@ -66,11 +66,11 @@ Mettendo insieme il tutto, otteniamo l'andamento della funzione di crescita del 
 
 \end{figure}
 
-La forza del Bic, può essere desunta dal plateau che si forma nell'intorno di \texttt{W\_max}. Quest'ultimo permette operare con valori alti della \texttt{cwnd} (prossimi al limite), per un tempo superiore agli approcci tradizionali. \bigskip
+La forza del Bic, può essere desunta dal plateau che si forma nell'intorno di \texttt{W\_max}. Quest'ultimo permette di operare con valori alti della \texttt{cwnd} (prossimi al limite), per un tempo superiore agli approcci tradizionali. \bigskip
 
-Se dunque è comprensibile, che questo modo di modulare la finestra di congestione, funziona quando il \textit{BDP} in gioco è elevato, è altrettanto comprensibile che un tale approccio dia prestazioni inferiori al Reno, quando l'RTT è basso. \bigskip
+Se dunque è comprensibile, che questo modo di modulare la finestra di congestione, aiuta quando il \textit{BDP} in gioco è elevato, è altrettanto comprensibile che un tale approccio sia sicuramente poco fair nei confronti di Reno per BDP bassi. \bigskip 
 
-Per valori bassi dell'RTT, essere molto aggressivi porta velocemente e molto più frequentemente alla saturazione. \bigskip 
+Non solo, è possibile che in alcune zone di funzionamento la Bic function produca un avanzamento della finestra di congestione più lento rispetto quello lineare. Ciò può accadere quando si è lontani dal punto di saturazione. \bigskip
 
 Tutto ciò congiuntamente al fatto che la realizzazione di un binary search algorithm, non è cosa semplice, ha portato allo sviluppo di Cubic.
 

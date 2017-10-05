@@ -4,10 +4,10 @@ Sia Cubic (App. A) che BBR, si servono di uno stato iniziale, quali lo Slow Star
 
 Tuttavia, hanno un intento differente, essendo due approcci al controllo di congestione diversi. \bigskip
 
-Il Cubic cerca il limite superiore, per fissare la soglia di passaggio dallo Slow Start, al Congestion Avoidance. In cui semplicemente, continuerà ad aumentare il sending rate, ma in modo più lento. Questo finchè non raggiungerà il punto in cui scadrà un timeout, o il bottleneck buffer sarà saturo. Condizione in cui si verificheranno delle perdite. \bigskip
+Il Cubic cerca il limite superiore per fissare la soglia di passaggio dallo Slow Start, al Congestion Avoidance. In cui semplicemente, continuerà ad aumentare il sending rate, ma in modo più lento. Questo finchè non raggiungerà il punto in cui scadrà un timeout, o il bottleneck buffer sarà saturo. Condizione in cui si verificheranno delle perdite. \bigskip
 
-Il BBR invece, raggiunto il limite del delivery rate, con la consapevolezza di esser andato un pò oltre (il target point), e di aver generato delle code, passa in Drain per scaricarle.
-Quindi arriva in ProbeBW, con le condizioni giuste e necessarie ad operare regolarmente al massimo tasso, ed ai minimi ritardi. \bigskip
+Il BBR invece, raggiunto il limite del delivery rate, con la consapevolezza di esser andato un pò oltre (il target point) e di aver generato delle code, passa in Drain per scaricarle.
+Quindi arriva in ProbeBW con le condizioni giuste e necessarie ad operare regolarmente al massimo tasso, ed ai minimi ritardi. \bigskip
 
 Possiamo infatti sottolineare la loro evidente differenza nella gestione dell'RTT, con il seguente scenario:
 
@@ -20,7 +20,7 @@ Possiamo infatti sottolineare la loro evidente differenza nella gestione dell'RT
 
 \end{figure}
 
-L'ambito operativo di Cubic, è sicuramente quello peggiore. In quanto avremo dei livelli alternati di RTT, tra il 70\% ed il 100\% (con 0\% intendiamo la condizione in cui RTT $ \simeq $ RTprop), ed un delivery rate si al massimo, ma dimezzato ogni volta in corrispondenza di una perdita (o abbattuto ad un timeout):
+L'ambito operativo di Cubic è sicuramente quello peggiore, in quanto avremo dei livelli alternati di RTT, tra il 70\% ed il 100\% (con 0\% intendiamo la condizione in cui RTT $ \simeq $ RTprop), ed un delivery rate si al massimo, ma dimezzato ogni volta in corrispondenza di una perdita (o abbattuto ad un timeout):
 
 \begin{figure}[H]
 
@@ -50,17 +50,17 @@ Ecco infatti un caso d'esempio di 5 flussi concorrenti, che condividono un bottl
 
 Nella figura viene presentato uno scenario abbastanza generale, in cui i flussi BBR non nascono tutti nello stesso istante. \bigskip
 
-Ciò che ci aspettiamo accada è semplice. Nello stato di ProbeBW i flussi al di sopra del fair share, scopriranno un calo del bottleneck rate. Quindi si accorgeranno della perdita di banda, riconfigurando poi il loro pacing rate. \bigskip
+Ciò che ci aspettiamo accada è semplice. Nello stato di ProbeBW i flussi al di sopra del fair share scopriranno un calo del bottleneck rate, quindi si accorgeranno della perdita di banda, riconfigurando poi il loro pacing rate. \bigskip
 
 Andando poi avanti, quando (di nuovo) un flusso al di sopra del fair share - che dunque sta generando un maggior traffico - entrerà in ProbeRTT, svuoterà considerevolmente il bottleneck buffer. Ciò porterà ad un aggiornamento dell'RTprop degli altri flussi concorrenti. \bigskip
 
-Alla lunga, il tutto porta a sincronizzare l'entrata nello stato di ProbeRTT, di tutti i flussi. Così tutti portranno stimare il reale valore dell'RTprop, così come del bottleneck rate.
+Alla lunga, il tutto porta a sincronizzare l'entrata nello stato di ProbeRTT di tutti i flussi. Così tutti portranno stimare il reale valore dell'RTprop, così come del bottleneck rate.
 
 \section{Fairness tra flussi loss-based e BBR}
 
-In questo caso, è abbastanza (purtroppo) prevedibile, che allo stato attuale delle cose, sia difficile raggiungere una suddivisione equa della banda. \bigskip
+In questo caso, è abbastanza (purtroppo) prevedibile che allo stato attuale delle cose, sia difficile raggiungere una suddivisione equa della banda. \bigskip
 
-Fondamentalmente, un flusso loss-based presenta un andamento del throughput, pressochè a dente di sega:
+Fondamentalmente, un flusso loss-based presenta un andamento del throughput pressochè a dente di sega:
 
 \begin{figure}[H]
 
@@ -70,7 +70,7 @@ Fondamentalmente, un flusso loss-based presenta un andamento del throughput, pre
 
 \end{figure}
 
-Allora ci aspetteremo che un flusso BBR, abbia maggiore banda, nelle fasi di low-throughput del flusso loss, mentre questi diminuisca quando quest'ultimo arriva al suo massimo (le sue reali possibilità). Tuttavia, un flusso loss, ad esempio come Reno, raggiunge il massimo in corrispondenza di un evento di perdita, per cui non manterrà a lungo tale livello. \bigskip
+Allora ci aspetteremo che un flusso BBR abbia maggiore banda nelle fasi di low-throughput del flusso loss, mentre questi diminuisca quando quest'ultimo arriva al suo massimo (le sue reali possibilità). Tuttavia, un flusso loss, ad esempio come Reno, raggiunge il massimo in corrispondenza di un evento di perdita, per cui non manterrà a lungo tale livello. \bigskip
 
 Per la consultazione di appositi esperimenti si veda \cite{ietf:ietf-98-bbr-slides}. 
 
@@ -80,7 +80,7 @@ B4 è una rete proprietaria ad estensione geografica, dalle alte performance, di
 
 Nel 2015, quando BBR non era più solo una teoria, ma una idea concreta, si diede inizio ad una transizione verso quest'ultimo. Così nel 2016, Cubic è stato completamente sostituito dal BBR, che non essendo un approccio loss-based, ha portato un notevole incremento delle prestazioni. \bigskip
 
-Il primo artefatto d'analisi, mette a rapporto il throughput raggiunto con BBR rispetto quello raggiunto con Cubic:
+Il primo artefatto d'analisi mette a rapporto il throughput raggiunto con BBR rispetto quello raggiunto con Cubic:
 
 \begin{figure}[H]
 
@@ -91,9 +91,9 @@ Il primo artefatto d'analisi, mette a rapporto il throughput raggiunto con BBR r
 
 \end{figure}
 
-Tali dati, raccolti da varie sonde, disposte in vari punti della rete B4, mettono in evidenza un incremento prestazionale che va dal 2x al 25x. In realtà, l'incremento del BBR è mascherato dal limite imposto ai buffer di ricezione TCP (8 MB). \bigskip
+Tali dati, raccolti da varie sonde disposte in vari punti della rete B4, mettono in evidenza un incremento prestazionale che va dal 2x al 25x. In realtà, l'incremento del BBR è mascherato dal limite imposto ai buffer di ricezione TCP (8 MB). \bigskip
 
-Alzando tale limite è stato ottenuto, su un path tra Europa e USA, un throughput di 2 Gbps, contro i 15 Mbps di Cubic. Parliamo di un incremento: 133x. \bigskip
+Alzando tale limite, è stato ottenuto su un path tra Europa e USA, un throughput di 2 Gbps, contro i 15 Mbps di Cubic. Parliamo di un incremento: 133x. \bigskip
 
 Nel grafico vengono anche messe a confronto le distribuzioni di probabilità cumulative. Da esso possiamo notare (qualitativamente) che:
 
@@ -121,7 +121,7 @@ P(thput < 5000) & 1 & 1  \\
 \end{tabular}
 \end{table}
 
-Il secondo artefatto mette a confronto il throughput utile sostenibile, in funzione del loss-rate:
+Il secondo artefatto mette a confronto il throughput utile sostenibile in funzione del loss-rate:
 
 \begin{figure}[H]
 

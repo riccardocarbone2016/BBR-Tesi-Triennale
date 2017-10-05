@@ -1,15 +1,15 @@
 Nonostante gli enormi passi avanti che sono stati compiuti nel campo delle tecnologie usate nelle reti di calcolatori, sono ancora molteplici i casi in cui Internet non trasmette le informazioni alle velocità sperate. \bigskip
 
-Eppure molto s’investe nella ricerca e sviluppo, di un’infrastruttura efficiente per la trasmissione dei segnali, che garantisca elevati livelli di delivery rate end-to-end (in ogni normale condizione). \bigskip
+Eppure molto s’investe nella ricerca e sviluppo di un’infrastruttura efficiente per la trasmissione dei segnali, che garantisca elevati livelli di delivery rate end-to-end (in ogni normale condizione). \bigskip
 
-Come dunque, si può immaginare, la causa principale non è nè l’uso di tecnologie inadeguate, nè la mancanza di conoscenza nel loro uso. Il reale freno alle potenziali velocità raggiungibili, nasce da una scelta effettuata negli anni '80, quando fu definito il primo schema per il controllo di congestione del protocollo TCP. \bigskip
+Come dunque si può immaginare, la causa principale non è nè l’uso di tecnologie inadeguate, nè la mancanza di conoscenza nel loro uso. Il reale freno alle potenziali velocità raggiungibili, nasce da una scelta effettuata negli anni '80, quando fu definito il primo schema per il controllo di congestione del protocollo TCP. \bigskip
 
 Tale scelta riguardava l’identificare il fenomeno di congestione (in senso stretto) con il fenomeno di perdita dei pacchetti. \bigskip
 
-Tuttavia, nonostante i due concetti siano molto differenti, al tempo tale scelta aveva senso, solo in virtù delle limitazioni tecnologiche. \bigskip
+Tuttavia, nonostante i due concetti siano molto differenti, al tempo tale scelta aveva senso solo in virtù delle limitazioni tecnologiche. \bigskip
 
 Oggi anche la migliore versione loss-based di TCP: Cubic (App. A), fa fatica a garantire un delivery rate elevato. Basti pensare che per poter sostenere 10Gbps con un RTT di 100ms, è necessario un tasso di perdita dello 0.000003\%, e con lo stesso RTT ed un tasso di perdita dell’ 1\% sono sostenibili solo 3Mbps \cite[p.~12]{ietf:draft-ietf-tcpm-cubic-05}. \bigskip
 
-Lo scopo di quest'elaborato è dunque quello di presentare un'alternativa per tali approcci, che non sia più basata sull'evento di packet loss, ma esplicitamente sull'evento di congestione. L'alternativa che è stata approfondita è il nuovo controllo di congestione BBR. \bigskip
+Lo scopo di quest'elaborato è dunque quello di presentare un'alternativa per tali approcci, che non sia più basata sull'evento di packet loss, ma su una diversa e precoce rilevazione della congestione. L'alternativa che è stata approfondita è il nuovo controllo di congestione BBR. \bigskip
 
 Prima di iniziare, è lecito far presente che lo sviluppo di tale soluzione è ancora in corso, per cui alcuni aspetti di questa prima versione potrebbero subire delle modifiche nel corso del tempo.
