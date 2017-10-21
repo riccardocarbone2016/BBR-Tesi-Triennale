@@ -1,2 +1,2 @@
-# University
-University projects
+# BBR Thesis
+Thesis about the BBR congestion control
